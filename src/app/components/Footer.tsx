@@ -1,7 +1,22 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
 export function Footer() {
+  const colorVariants = {
+    cyan: {
+      hoverBorder: 'hover:border-cyan-400/50',
+      hoverText: 'hover:text-cyan-400',
+      bgGlow: 'bg-cyan-400/20',
+      glowColor: 'rgba(34, 211, 238, 0.8)'
+    },
+    red: {
+      hoverBorder: 'hover:border-red-400/50',
+      hoverText: 'hover:text-red-400',
+      bgGlow: 'bg-red-400/20',
+      glowColor: 'rgba(239, 68, 68, 0.8)'
+    }
+  };
+
   return (
     <footer className="relative bg-[#0b0b0d] border-t border-white/10">
       {/* Top Glowing Divider */}
@@ -83,21 +98,35 @@ export function Footer() {
         {/* Social Icons */}
         <div className="flex justify-center gap-6 mb-8">
           {[
-            { Icon: Facebook, color: 'cyan' },
-            { Icon: Twitter, color: 'cyan' },
-            { Icon: Instagram, color: 'red' },
-            { Icon: Youtube, color: 'red' }
-          ].map(({ Icon, color }, index) => (
+            { Icon: Facebook, color: 'cyan', glowColor: 'rgba(34, 211, 238, 0.6)' },
+            { Icon: Twitter, color: 'cyan', glowColor: 'rgba(34, 211, 238, 0.6)' },
+            { Icon: Instagram, color: 'red', glowColor: 'rgba(239, 68, 68, 0.6)' },
+            { Icon: Youtube, color: 'red', glowColor: 'rgba(239, 68, 68, 0.6)' }
+          ].map(({ Icon, color, glowColor }, index) => (
             <motion.a
               key={index}
               href="#"
-              className={`p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-${color}-400/50 transition-all duration-300 group`}
+              className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
               whileHover={{ scale: 1.1, y: -5 }}
               whileTap={{ scale: 0.95 }}
+              style={{
+                borderColor: color === 'cyan' ? 'rgba(34, 211, 238, 0.5)' : 'rgba(239, 68, 68, 0.5)'
+              }}
             >
-              <Icon className={`w-5 h-5 text-gray-400 group-hover:text-${color}-400 transition-colors duration-300`} />
+              <Icon 
+                className="w-5 h-5 text-gray-400 transition-colors duration-300"
+                style={{
+                  color: color === 'cyan' ? '#06b6d4' : '#ef4444'
+                }}
+              />
               <motion.div
-                className={`absolute inset-0 bg-${color}-400/20 rounded-lg opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300`}
+                className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"
+                style={{ 
+                  background: color === 'cyan' 
+                    ? 'rgba(34, 211, 238, 0.2)' 
+                    : 'rgba(239, 68, 68, 0.2)',
+                  boxShadow: `0 0 20px ${glowColor}`
+                }}
               />
             </motion.a>
           ))}
