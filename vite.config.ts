@@ -11,19 +11,21 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // now works without red line
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   server: {
     port: 3000,
     open: true,
+    middlewareMode: false,
   },
   optimizeDeps: {
     include: [
       'react',
       'react-dom',
       '@radix-ui/react-slot',
-      '@mui/material'
     ],
   },
+  // Asset handling configuration
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'],
 });
